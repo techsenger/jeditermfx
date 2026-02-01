@@ -15,19 +15,19 @@
  */
 package com.techsenger.jeditermfx.ui;
 
-import java.awt.Desktop;
-import java.awt.EventQueue;
 import com.techsenger.jeditermfx.core.model.hyperlinks.HyperlinkFilter;
 import com.techsenger.jeditermfx.core.model.hyperlinks.LinkInfo;
 import com.techsenger.jeditermfx.core.model.hyperlinks.LinkResult;
 import com.techsenger.jeditermfx.core.model.hyperlinks.LinkResultItem;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import java.awt.Desktop;
+import java.awt.EventQueue;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,22 +64,8 @@ public class DefaultHyperlinkFilter implements HyperlinkFilter {
                 }
             }
             String url = m.group();
-            item = new LinkResultItem(textStartOffset + m.start(), textStartOffset + m.end(), new LinkInfo(() -> {
-                try {
-                    var d = Desktop.getDesktop();
-                    if (d != null) {
-                        EventQueue.invokeLater(() -> {
-                            try {
-                                d.browse(new URI(url));
-                            } catch (Exception ex) {
-                                logger.error("Error opening url: {}", url, ex);
-                            }
-                        });
-                    }
-                } catch (Exception e) {
-                    //pass
-                }
-            }));
+            item = new LinkResultItem(textStartOffset + m.start(), textStartOffset + m.end(),
+                    new LinkInfo(() -> open(url)));
             if (items != null) {
                 items.add(item);
             }
@@ -87,5 +73,22 @@ public class DefaultHyperlinkFilter implements HyperlinkFilter {
         return items != null ? new LinkResult(items)
                 : item != null ? new LinkResult(item)
                 : null;
+    }
+
+    protected void open(String url) {
+        try {
+            var d = Desktop.getDesktop();
+            if (d != null) {
+                EventQueue.invokeLater(() -> {
+                    try {
+                        d.browse(new URI(url));
+                    } catch (Exception ex) {
+                        logger.error("Error opening url: {}", url, ex);
+                    }
+                });
+            }
+        } catch (Exception e) {
+            //pass
+        }
     }
 }
