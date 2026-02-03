@@ -217,7 +217,7 @@ public class TerminalPanel implements TerminalDisplay, TerminalActionProvider {
 
     private FindResult myFindResult;
 
-    private final BooleanProperty findResultHighlighted = new SimpleBooleanProperty(true);
+    private final BooleanProperty findMatchHighlighted = new SimpleBooleanProperty(true);
 
     private LinkInfo myHoveredHyperlink = null;
 
@@ -271,8 +271,20 @@ public class TerminalPanel implements TerminalDisplay, TerminalActionProvider {
         return selectedText.getReadOnlyProperty();
     }
 
-    public BooleanProperty findResultHighlightedProperty() {
-        return findResultHighlighted;
+//    public String getSelectedText() {
+//        return selectedText.get();
+//    }
+
+    public BooleanProperty findMatchHighlightedProperty() {
+        return findMatchHighlighted;
+    }
+
+    public void setFindMatchHighlighted(boolean value) {
+        this.findMatchHighlighted.set(value);
+    }
+
+    public boolean isFindMatchHighlighted() {
+        return this.findMatchHighlighted.get();
     }
 
     public Pane getPane() {
@@ -949,7 +961,7 @@ public class TerminalPanel implements TerminalDisplay, TerminalActionProvider {
                         public void consume(int x, int y, @NotNull TextStyle style, @NotNull CharBuffer characters, int startRow) {
                             int row = y - startRow;
                             drawCharacters(x, row, style, characters, myFillCharacterBackgroundIncludingLineSpacing);
-                            if (myFindResult != null && findResultHighlighted.get()) {
+                            if (myFindResult != null && findMatchHighlighted.get()) {
                                 List<Pair<Integer, Integer>> ranges = myFindResult.getRanges(characters);
                                 if (ranges != null && !ranges.isEmpty()) {
                                     TextStyle foundPatternStyle = getFoundPattern(style);
@@ -1903,7 +1915,7 @@ public class TerminalPanel implements TerminalDisplay, TerminalActionProvider {
 
     @NotNull
     public boolean isSelectedTextUrl() {
-        String selectedText = getSelectedText();
+        String selectedText = getSelectedTextFromTerminal();
         if (selectedText != null) {
             try {
                 URI uri = new URI(selectedText);
@@ -1918,7 +1930,7 @@ public class TerminalPanel implements TerminalDisplay, TerminalActionProvider {
     }
 
     @Nullable
-    private String getSelectedText() {
+    private String getSelectedTextFromTerminal() {
         if (mySelection.get() != null) {
             Pair<Point, Point> points = mySelection.get().pointsForRun(myTermSize.getColumns());
             if (points.getFirst() != null || points.getSecond() != null) {
@@ -1932,7 +1944,7 @@ public class TerminalPanel implements TerminalDisplay, TerminalActionProvider {
     public boolean openSelectedTextAsURL() {
         if (Desktop.isDesktopSupported()) {
             try {
-                String selectedText = getSelectedText();
+                String selectedText = getSelectedTextFromTerminal();
                 if (selectedText != null) {
                     EventQueue.invokeLater(() -> {
                         try {
@@ -2282,7 +2294,7 @@ public class TerminalPanel implements TerminalDisplay, TerminalActionProvider {
 
     private void updateSelectedText() {
         if (this.updateSelectedText || mySelection.get() == null) {
-            selectedText.set(getSelectedText());
+            selectedText.set(getSelectedTextFromTerminal());
         }
         this.updateSelectedText = true;
     }
