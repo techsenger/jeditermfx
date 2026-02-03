@@ -640,8 +640,8 @@ public class TerminalPanel implements TerminalDisplay, TerminalActionProvider {
 
     public void setFindResult(@Nullable FindResult findResult) {
         myFindResult = findResult;
-        if (myFindResult != null && !myFindResult.getItems().isEmpty()) {
-            selectFindResultItem(myFindResult.selectedItem());
+        if (myFindResult != null && !myFindResult.getMatches().isEmpty()) {
+            selectFindResultItem(myFindResult.selectedMatch());
         }
         repaint();
     }
@@ -659,8 +659,8 @@ public class TerminalPanel implements TerminalDisplay, TerminalActionProvider {
     }
 
     protected @Nullable FindResult selectPrevOrNextFindResultItem(boolean next) {
-        if (myFindResult != null && !myFindResult.getItems().isEmpty()) {
-            FindResult.FindItem item = next ? myFindResult.nextFindItem() : myFindResult.prevFindItem();
+        if (myFindResult != null && !myFindResult.getMatches().isEmpty()) {
+            FindResult.Match item = next ? myFindResult.nextMatch() : myFindResult.prevMatch();
             selectFindResultItem(item);
             repaint();
             return myFindResult;
@@ -668,7 +668,7 @@ public class TerminalPanel implements TerminalDisplay, TerminalActionProvider {
         return null;
     }
 
-    protected void selectFindResultItem(FindResult.FindItem item) {
+    protected void selectFindResultItem(FindResult.Match item) {
         int historyLineCount = getTerminalTextBuffer().getHistoryLinesCount();
         int screenLineCount = getTerminalTextBuffer().getScreenLinesCount();
         var selection = new TerminalSelection(new Point(item.getStart().x,

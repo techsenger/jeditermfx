@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public interface FindResult {
 
-    public static interface FindItem {
+    public static interface Match {
 
         @NotNull
         public String getText();
@@ -31,11 +31,11 @@ public interface FindResult {
 
     public @Nullable List<Pair<Integer, Integer>> getRanges(CharBuffer characters);
 
-    public @NotNull List<FindItem> getItems();
+    public @NotNull List<Match> getMatches();
 
-    public @NotNull FindItem selectedItem();
+    public @NotNull Match selectedMatch();
 
-    public @NotNull FindItem nextFindItem();
+    public @NotNull Match nextMatch();
 
-    public @NotNull FindItem prevFindItem();
+    public @NotNull Match prevMatch();
 }

@@ -62,9 +62,9 @@ final class FindComponent {
     private void updateLabel(@Nullable FindResult result) {
         if (result == null) {
             label.setText("");
-        } else if (!result.getItems().isEmpty()) {
-            FindResult.FindItem selectedItem = result.selectedItem();
-            label.setText(selectedItem.getIndex() + " of " + result.getItems().size());
+        } else if (!result.getMatches().isEmpty()) {
+            FindResult.Match selectedItem = result.selectedMatch();
+            label.setText(selectedItem.getIndex() + " of " + result.getMatches().size());
         }
     }
 

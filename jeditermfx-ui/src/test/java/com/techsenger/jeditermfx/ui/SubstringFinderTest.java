@@ -39,9 +39,9 @@ public class SubstringFinderTest {
     @Test
     public void test6() {
         SubstringFinder.FindResultImpl res = getFindResult("aba", "abacaba");
-        assertEquals(2, res.getItems().size());
-        for (int i = 0; i < res.getItems().size(); i++) {
-            assertEquals("aba", res.getItems().get(i).getText());
+        assertEquals(2, res.getMatches().size());
+        for (int i = 0; i < res.getMatches().size(); i++) {
+            assertEquals("aba", res.getMatches().get(i).getText());
         }
     }
 
@@ -49,9 +49,9 @@ public class SubstringFinderTest {
     public void test7() {
         SubstringFinder.FindResultImpl res = getFindResult("aa", "aaaa");
         //after a pattern is matched we start from the next character
-        assertEquals(2, res.getItems().size());
-        for (int i = 0; i < res.getItems().size(); i++) {
-            assertEquals("aa", res.getItems().get(i).getText());
+        assertEquals(2, res.getMatches().size());
+        for (int i = 0; i < res.getMatches().size(); i++) {
+            assertEquals("aa", res.getMatches().get(i).getText());
         }
     }
 
@@ -59,9 +59,9 @@ public class SubstringFinderTest {
     public void test8() {
         SubstringFinder.FindResultImpl res = getFindResult("aaa", "aa", "aa", "aa");
         //after a pattern is matched we start from the next character
-        assertEquals(2, res.getItems().size());
-        for (int i = 0; i < res.getItems().size(); i++) {
-            assertEquals("aaa", res.getItems().get(i).getText());
+        assertEquals(2, res.getMatches().size());
+        for (int i = 0; i < res.getMatches().size(); i++) {
+            assertEquals("aaa", res.getMatches().get(i).getText());
         }
     }
 
@@ -84,15 +84,15 @@ public class SubstringFinderTest {
     public void testIgnoreCase() {
         SubstringFinder.FindResultImpl res = getFindResult("abc", " ABC ");
         //after a pattern is matched we start from the next character
-        assertEquals(1, res.getItems().size());
-        assertEquals("ABC", res.getItems().get(0).getText());
+        assertEquals(1, res.getMatches().size());
+        assertEquals("ABC", res.getMatches().get(0).getText());
     }
 
     private void doTest(String patter, String... strings) {
         SubstringFinder.FindResultImpl res = getFindResult(patter, strings);
 
-        assertEquals(1, res.getItems().size());
-        assertEquals(patter, res.getItems().get(0).getText());
+        assertEquals(1, res.getMatches().size());
+        assertEquals(patter, res.getMatches().get(0).getText());
     }
 
     @NotNull

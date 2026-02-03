@@ -64,7 +64,7 @@ public class SubstringFinder {
         }
         myCurrentHash = 31 * myCurrentHash + charHash(characters.charAt(index));
         if (myCurrentLength == myPattern.length() && myCurrentHash == myPatternHash) {
-            FindResultImpl.FindItemImpl item = new FindResultImpl.FindItemImpl(myTokens, myFirstIndex, index, -1);
+            FindResultImpl.MatchImpl item = new FindResultImpl.MatchImpl(myTokens, myFirstIndex, index, -1);
             String itemText = item.getText();
             boolean matched = myPattern.equals(myIgnoreCase ? itemText.toLowerCase() : itemText);
             if (matched && accept(item)) {
@@ -83,7 +83,7 @@ public class SubstringFinder {
         }
     }
 
-    public boolean accept(@NotNull FindResultImpl.FindItemImpl item) {
+    public boolean accept(@NotNull FindResultImpl.MatchImpl item) {
         return true;
     }
 
@@ -101,11 +101,11 @@ public class SubstringFinder {
 
     protected static final class FindResultImpl implements FindResult {
 
-        private final List<FindItemImpl> items = new ArrayList<>();
+        private final List<MatchImpl> matches = new ArrayList<>();
 
         private final Map<CharBuffer, List<Pair<Integer, Integer>>> ranges = new HashMap<>();
 
-        private int selectedItem = 0;
+        private int selectedMatch = 0;
 
         @Override
         public List<Pair<Integer, Integer>> getRanges(CharBuffer characters) {
@@ -135,7 +135,7 @@ public class SubstringFinder {
             return start < end ? new Pair<>(start, end) : null;
         }
 
-        protected static class FindItemImpl implements FindItem {
+        protected static class MatchImpl implements Match {
 
             final ArrayList<TextToken> tokens;
 
@@ -146,7 +146,7 @@ public class SubstringFinder {
             // index in the result list
             final int index;
 
-            private FindItemImpl(ArrayList<TextToken> tokens, int firstIndex, int lastIndex, int index) {
+            private MatchImpl(ArrayList<TextToken> tokens, int firstIndex, int lastIndex, int index) {
                 this.tokens = new ArrayList<>(tokens);
                 this.firstIndex = firstIndex;
                 this.lastIndex = lastIndex;
@@ -209,7 +209,7 @@ public class SubstringFinder {
                 Pair<Integer, Integer> range = new Pair<>(0, lastIndex + 1);
                 put(tokens.get(tokens.size() - 1).buf, range);
             }
-            items.add(new FindItemImpl(tokens, firstIndex, lastIndex, items.size() + 1));
+            matches.add(new MatchImpl(tokens, firstIndex, lastIndex, matches.size() + 1));
         }
 
         private void put(CharBuffer characters, Pair<Integer, Integer> range) {
@@ -221,33 +221,33 @@ public class SubstringFinder {
         }
 
         @Override
-        public @NotNull List<FindItem> getItems() {
-            return (List) items;
+        public @NotNull List<Match> getMatches() {
+            return (List) matches;
         }
 
         @Override
-        public @NotNull FindItemImpl selectedItem() {
+        public @NotNull MatchImpl selectedMatch() {
             assertNotEmpty();
-            return items.get(selectedItem);
+            return matches.get(selectedMatch);
         }
 
         @Override
-        public @NotNull FindItemImpl nextFindItem() {
+        public @NotNull MatchImpl nextMatch() {
             assertNotEmpty();
-            selectedItem = (selectedItem + 1) % items.size();
-            return selectedItem();
+            selectedMatch = (selectedMatch + 1) % matches.size();
+            return selectedMatch();
         }
 
         @Override
-        public @NotNull FindItemImpl prevFindItem() {
+        public @NotNull MatchImpl prevMatch() {
             assertNotEmpty();
-            selectedItem = (selectedItem + items.size() - 1) % items.size();
-            return selectedItem();
+            selectedMatch = (selectedMatch + matches.size() - 1) % matches.size();
+            return selectedMatch();
         }
 
         private void assertNotEmpty() {
-            if (items.isEmpty()) {
-                throw new AssertionError("No items");
+            if (matches.isEmpty()) {
+                throw new AssertionError("No matches");
             }
         }
     }

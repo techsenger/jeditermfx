@@ -363,7 +363,7 @@ public class JediTermFxWidget implements TerminalSession, TerminalWidget, Termin
             Color color = mySettingsProvider.getTerminalColorPalette()
                     .getBackground(Objects.requireNonNull(mySettingsProvider.getFoundPatternColor().getBackground()));
             var fxColor = FxTransformers.toFxColor(color);
-            for (FindResult.FindItem r : result.getItems()) {
+            for (FindResult.Match r : result.getMatches()) {
                 var marker = new ScrollBarMark(fxColor);
                 var position = FxScrollBarUtils.getValueFor(r.getStart().y, screenLineCount + historyLineCount,
                         scrollBar.getMin(), scrollBar.getMax());
