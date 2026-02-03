@@ -1,10 +1,9 @@
 package com.techsenger.jeditermfx.ui;
 
-import com.techsenger.jeditermfx.ui.SubstringFinder;
 import com.techsenger.jeditermfx.core.model.CharBuffer;
 import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author traff
@@ -106,6 +105,6 @@ public class SubstringFinderTest {
             }
         }
 
-        return f.getResult();
+        return (SubstringFinder.FindResultImpl) f.getResult();
     }
 }

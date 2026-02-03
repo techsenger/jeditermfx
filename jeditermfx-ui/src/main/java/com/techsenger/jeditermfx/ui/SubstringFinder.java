@@ -95,7 +95,7 @@ public class SubstringFinder {
         return myPower * charHash(charAt);
     }
 
-    public FindResultImpl getResult() {
+    public FindResult getResult() {
         return myResult;
     }
 
