@@ -25,9 +25,9 @@ final class FindComponent {
     public FindComponent(JediTermFxWidget jediTermWidget) {
         this.ignoreCaseCheckBox.setSelected(true);
         Button next = new Button("\u25BC");
-        next.setOnAction(e -> onResultUpdated(jediTermWidget.getTerminalPanel().selectNextFindResultItem()));
+        next.setOnAction(e -> onResultUpdated(jediTermWidget.getTerminalPanel().selectNextFindMatch()));
         Button prev = new Button("\u25B2");
-        prev.setOnAction(e -> onResultUpdated(jediTermWidget.getTerminalPanel().selectPrevFindResultItem()));
+        prev.setOnAction(e -> onResultUpdated(jediTermWidget.getTerminalPanel().selectPrevFindMatch()));
         var charSize = jediTermWidget.myTerminalPanel.myCharSize;
         HBox.setHgrow(textField, Priority.ALWAYS);
         pane.setMaxSize(

@@ -331,9 +331,9 @@ public class JediTermFxWidget implements TerminalSession, TerminalWidget, Termin
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     hideFindComponent();
                 } else if (keyEvent.getCode() == KeyCode.ENTER || keyEvent.getCode() == KeyCode.DOWN) {
-                    myFindComponent.onResultUpdated(myTerminalPanel.selectNextFindResultItem());
+                    myFindComponent.onResultUpdated(myTerminalPanel.selectNextFindMatch());
                 } else if (keyEvent.getCode() == KeyCode.UP) {
-                    myFindComponent.onResultUpdated(myTerminalPanel.selectPrevFindResultItem());
+                    myFindComponent.onResultUpdated(myTerminalPanel.selectPrevFindMatch());
                 }
             });
         } else {

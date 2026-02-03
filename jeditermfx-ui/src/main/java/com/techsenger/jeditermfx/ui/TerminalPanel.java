@@ -662,15 +662,15 @@ public class TerminalPanel implements TerminalDisplay, TerminalActionProvider {
         return myFindResult;
     }
 
-    public @Nullable FindResult selectPrevFindResultItem() {
-        return selectPrevOrNextFindResultItem(false);
+    public @Nullable FindResult selectPrevFindMatch() {
+        return selectPrevOrNextFindMatch(false);
     }
 
-    public @Nullable FindResult selectNextFindResultItem() {
-        return selectPrevOrNextFindResultItem(true);
+    public @Nullable FindResult selectNextFindMatch() {
+        return selectPrevOrNextFindMatch(true);
     }
 
-    protected @Nullable FindResult selectPrevOrNextFindResultItem(boolean next) {
+    protected @Nullable FindResult selectPrevOrNextFindMatch(boolean next) {
         if (myFindResult != null && !myFindResult.getMatches().isEmpty()) {
             FindResult.Match item = next ? myFindResult.nextMatch() : myFindResult.prevMatch();
             selectFindResultItem(item);
