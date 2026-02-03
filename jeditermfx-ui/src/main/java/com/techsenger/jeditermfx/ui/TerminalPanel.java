@@ -271,9 +271,9 @@ public class TerminalPanel implements TerminalDisplay, TerminalActionProvider {
         return selectedText.getReadOnlyProperty();
     }
 
-//    public String getSelectedText() {
-//        return selectedText.get();
-//    }
+    public String getSelectedText() {
+        return selectedText.get();
+    }
 
     public BooleanProperty findMatchHighlightedProperty() {
         return findMatchHighlighted;
