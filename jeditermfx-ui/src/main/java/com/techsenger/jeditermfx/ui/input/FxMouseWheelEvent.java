@@ -9,10 +9,14 @@ import com.techsenger.jeditermfx.core.emulator.mouse.MouseButtonModifierFlags;
 public final class FxMouseWheelEvent extends MouseWheelEvent {
 
     private static int createButtonCode(@NotNull ScrollEvent fxMouseEvent) {
-        if (fxMouseEvent.getDeltaY() > 0) {
+        // JavaFX deltaY > 0 means scrolling up, the opposite of AWT's getWheelRotation() > 0
+        double deltaY = fxMouseEvent.getDeltaY();
+        if (deltaY > 0) {
+            return MouseButtonCodes.SCROLLDOWN;
+        } else if (deltaY < 0) {
             return MouseButtonCodes.SCROLLUP;
         } else {
-            return MouseButtonCodes.SCROLLDOWN;
+            return MouseButtonCodes.NONE; // Ignore deltaY=0 events
         }
     }
 
