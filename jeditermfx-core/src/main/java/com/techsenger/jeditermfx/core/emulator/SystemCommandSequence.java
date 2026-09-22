@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Pattern;
 import kotlin.collections.CollectionsKt;
-import kotlin.text.StringsKt;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,10 +35,9 @@ public class SystemCommandSequence {
             textBuf.append(stream.getChar());
         } while (!isTerminated(textBuf));
         text = textBuf.toString();
-        var body = StringsKt.dropLast(text, terminatorLength(text));
-        var strArray = new String[]{String.valueOf(ARG_SEPARATOR)};
-        var splits = StringsKt.split(body, strArray, false, 0);
-        args = List.copyOf(splits);
+        var body = text.substring(0, text.length() - terminatorLength(text));
+        var splits = body.split(Pattern.quote(String.valueOf(ARG_SEPARATOR)), -1);
+        args = List.of(splits);
     }
 
     @NotNull
@@ -57,9 +56,10 @@ public class SystemCommandSequence {
 
     private int parseInt(String value, int defaultValue) {
         if (value != null) {
-            Integer v = StringsKt.toIntOrNull(value);
-            if (v != null) {
-                return v;
+            try {
+                return Integer.parseInt(value);
+            } catch (NumberFormatException e) {
+                return defaultValue;
             }
         }
         return defaultValue;
@@ -71,7 +71,7 @@ public class SystemCommandSequence {
         // sequences, and when returning information, uses the same
         // terminator used in a query.
         return Ascii.ESC_CHAR + "]" + String.join(String.valueOf(ARG_SEPARATOR), args) +
-                StringsKt.takeLast(text, terminatorLength(text));
+                text.substring(text.length() - terminatorLength(text));
     }
 
     @Override
