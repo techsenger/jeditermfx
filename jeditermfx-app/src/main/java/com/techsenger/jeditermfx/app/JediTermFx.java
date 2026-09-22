@@ -45,7 +45,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import kotlin.collections.ArraysKt;
-import kotlin.text.Charsets;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.jetbrains.annotations.NotNull;
@@ -135,7 +134,8 @@ public class JediTermFx extends Application {
         @Override
         public void write(@NotNull byte[] bytes) throws IOException {
             Objects.requireNonNull(bytes, "bytes");
-            logger.debug("Writing in OutputStream : " + Arrays.toString(bytes) + " " + new String(bytes, Charsets.UTF_8));
+            logger.debug("Writing in OutputStream : " + Arrays.toString(bytes) + " "
+                    + new String(bytes, StandardCharsets.UTF_8));
             super.write(bytes);
         }
 
@@ -328,7 +328,7 @@ public class JediTermFx extends Application {
     private final Map<String, String> configureEnvironmentVariables() {
         HashMap envs = new HashMap<String, String>(System.getenv());
         if (com.techsenger.jeditermfx.core.util.Platform.isMacOS()) {
-            envs.put("LC_CTYPE", Charsets.UTF_8.name());
+            envs.put("LC_CTYPE", StandardCharsets.UTF_8.name());
         }
         if (!com.techsenger.jeditermfx.core.util.Platform.isWindows()) {
             envs.put("TERM", "xterm-256color");

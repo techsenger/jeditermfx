@@ -5,7 +5,7 @@ import com.techsenger.jeditermfx.core.util.Platform;
 import com.techsenger.jeditermfx.core.input.InputEvent;
 import com.techsenger.jeditermfx.core.input.KeyEvent;
 import com.techsenger.jeditermfx.core.util.Ascii;
-import kotlin.text.Charsets;
+import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
@@ -47,7 +47,7 @@ public class TerminalKeyEncoderTest {
     }
 
     private void assertKeyCode(int key, int modifiers, String expectedKeyCodeStr) {
-        assertKeyCode(key, modifiers, expectedKeyCodeStr.getBytes(Charsets.UTF_8));
+        assertKeyCode(key, modifiers, expectedKeyCodeStr.getBytes(StandardCharsets.UTF_8));
     }
 
     private void assertKeyCode(int key, int modifiers, byte[] expectedKeyCode) {

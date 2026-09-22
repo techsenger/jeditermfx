@@ -8,8 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.stream.Collectors;
-import kotlin.text.Charsets;
-
 
 public class TeseqVisualizer {
 
@@ -36,7 +34,7 @@ public class TeseqVisualizer {
 
     private File writeTextToTempFile(String text) throws IOException {
         var file = createTempFile();
-        Files.writeString(file.toPath(), text, Charsets.UTF_8);
+        Files.writeString(file.toPath(), text, StandardCharsets.UTF_8);
         return file;
     }
 
