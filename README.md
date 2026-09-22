@@ -20,6 +20,7 @@ any JavaFX application. A detailed comparison of terminal libraries is provided 
     * [Hyperlinks](#usage-hyperlinks)
 * [How It Works](#how-it-works)
     * [Terms](#how-it-works-terms)
+    * [Session](#how-it-works-session)
     * [Pipeline](#how-it-works-pipeline)
 * [Code Building](#code-building)
 * [Running the Application](#application)
@@ -122,9 +123,8 @@ offered by the program running in the terminal. Thus, links can use either custo
   UX blends into a single window.
 
 * **Terminal emulator** — a windowed program that draws a grid of characters, interprets ANSI codes (colors, cursor
-  movement) and captures key presses. Examples are gnome-terminal, xterm, konsole, iTerm2, Windows Terminal, and,
-  in this project's case, JediTermFX's own `TerminalPanel`. This is "the terminal" in the everyday sense, the
-  window itself.
+  movement) and captures key presses. Examples are gnome-terminal, xterm, konsole, iTerm2, Windows Terminal. This
+  is "the terminal" in the everyday sense, the window itself.
 
 * **PTY (pseudo-terminal)** — no longer a program but an operating system kernel mechanism. It is a pair of file
   descriptors, **master** and **slave**, that the kernel creates to give a process the illusion that it is
@@ -145,16 +145,16 @@ offered by the program running in the terminal. Thus, links can use either custo
   versions, Pty4J falls back to WinPTY, a third-party library that emulates PTY-like behavior on top of the old
   Windows Console subsystem rather than a true kernel PTY.
 
-* **Shell** (`bash`, `zsh`, PowerShell, `cmd.exe`) — a command-interpreter program, not a terminal. It does not
+* **Shell** (bash, zsh, PowerShell, cmd.exe) — a command-interpreter program, not a terminal. It does not
   draw anything itself, it just reads a line of text from its input, parses it as a command, executes it, and
   writes the result to its output. It has no idea whether the other end is a terminal emulator, a file, or a pipe,
   it simply writes characters (and, if it detects through `isatty()` that its output is a real terminal, it starts
   adding ANSI codes for readability, as covered below).
 
-### Pipeline <a name="how-it-works-pipeline"></a>
+### Session <a name="how-it-works-session"></a>
 
-**Initialization.** JediTermFX does not create PTYs itself, it relies on [Pty4J](https://github.com/JetBrains/pty4j)
-for that. Setting up a terminal session looks like this:
+JediTermFX does not create PTYs itself, it relies on [Pty4J](https://github.com/JetBrains/pty4j) for that. Setting
+up a terminal session looks like this:
 
 ```
 JediTermFX -> Pty4J -> OS pseudo-terminal (PTY: master + slave)
@@ -166,6 +166,8 @@ PTY's slave side, and exposes the PTY's master side to Java as a `PtyProcess`, w
 `java.lang.Process`. JediTermFX's integration point with this (or any other raw source of terminal I/O) is the
 `TtyConnector` interface; `ProcessTtyConnector` is a ready-made implementation wrapping a `java.lang.Process`.
 `TtyConnector` only reads and writes raw characters, it has no knowledge of ANSI escape sequences.
+
+### Pipeline <a name="how-it-works-pipeline"></a>
 
 **Reading.** Everything the child process writes to its output (plain text interleaved with raw ANSI/VT escape
 sequences, which the child process generates itself) then flows through JediTermFX like this:
