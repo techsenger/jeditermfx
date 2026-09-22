@@ -3,11 +3,11 @@ package com.techsenger.jeditermfx.ui;
 import com.techsenger.jeditermfx.core.compatibility.Point;
 import com.techsenger.jeditermfx.core.model.CharBuffer;
 import com.techsenger.jeditermfx.core.model.SubCharBuffer;
+import com.techsenger.jeditermfx.core.util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import kotlin.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

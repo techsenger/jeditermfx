@@ -2,7 +2,7 @@ package com.techsenger.jeditermfx.core.model;
 
 import com.techsenger.jeditermfx.core.compatibility.Point;
 import com.techsenger.jeditermfx.core.util.CharUtils;
-import kotlin.Pair;
+import com.techsenger.jeditermfx.core.util.Pair;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class SelectionUtil {
         SEPARATORS.add('>');
     }
 
-    public static kotlin.Pair<Point, Point> sortPoints(Point a, Point b) {
+    public static Pair<Point, Point> sortPoints(Point a, Point b) {
         if (a.y == b.y) { /* same line */
             return new Pair<>(a.x <= b.x ? a : b, a.x > b.x ? a : b);
         } else {

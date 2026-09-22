@@ -3,7 +3,7 @@ package com.techsenger.jeditermfx.core.model;
 import com.techsenger.jeditermfx.core.StyledTextConsumer;
 import com.techsenger.jeditermfx.core.TextStyle;
 import com.techsenger.jeditermfx.core.util.CharUtils;
-import kotlin.Pair;
+import com.techsenger.jeditermfx.core.util.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;

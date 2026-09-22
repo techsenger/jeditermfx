@@ -1,7 +1,7 @@
 package com.techsenger.jeditermfx.core.model;
 
 import com.techsenger.jeditermfx.core.compatibility.Point;
-import kotlin.Pair;
+import com.techsenger.jeditermfx.core.util.Pair;
 import org.jetbrains.annotations.Nullable;
 
 /**

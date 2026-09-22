@@ -2,8 +2,8 @@ package com.techsenger.jeditermfx.ui;
 
 import com.techsenger.jeditermfx.core.compatibility.Point;
 import com.techsenger.jeditermfx.core.model.CharBuffer;
+import com.techsenger.jeditermfx.core.util.Pair;
 import java.util.List;
-import kotlin.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

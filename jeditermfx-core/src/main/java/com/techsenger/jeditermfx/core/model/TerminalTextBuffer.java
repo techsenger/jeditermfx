@@ -8,7 +8,7 @@ import com.techsenger.jeditermfx.core.TextStyle;
 import com.techsenger.jeditermfx.core.model.TerminalLine.TextEntry;
 import com.techsenger.jeditermfx.core.model.hyperlinks.TextProcessing;
 import com.techsenger.jeditermfx.core.util.CharUtils;
-import kotlin.Pair;
+import com.techsenger.jeditermfx.core.util.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;

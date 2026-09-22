@@ -2,7 +2,7 @@ package com.techsenger.jeditermfx.core.util;
 
 import com.techsenger.jeditermfx.core.compatibility.Point;
 import com.techsenger.jeditermfx.core.model.TerminalSelection;
-import kotlin.Pair;
+import com.techsenger.jeditermfx.core.util.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
