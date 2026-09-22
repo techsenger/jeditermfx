@@ -3,9 +3,9 @@ package com.techsenger.jeditermfx.app.debug;
 import com.techsenger.jeditermfx.core.util.CharUtils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import kotlin.jvm.internal.Intrinsics;
 import org.jetbrains.annotations.NotNull;
 
 public class ControlSequenceVisualizer {
@@ -13,8 +13,8 @@ public class ControlSequenceVisualizer {
     @NotNull
     public static final String getVisualizedString(int logStart, @NotNull List<char[]> arrayChunks,
                                                    @NotNull ControlSequenceSettings settings) {
-        Intrinsics.checkNotNullParameter(arrayChunks, "arrayChunks");
-        Intrinsics.checkNotNullParameter(settings, "settings");
+        Objects.requireNonNull(arrayChunks, "arrayChunks");
+        Objects.requireNonNull(settings, "settings");
         List<String> originalChunks = arrayChunks.stream().map((c) -> new String(c)).collect(Collectors.toList());
         List<String> chunks = originalChunks;
         if (settings.isUseTeseq()) {

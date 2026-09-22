@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.IntConsumer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -44,7 +45,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import kotlin.collections.ArraysKt;
-import kotlin.jvm.internal.Intrinsics;
 import kotlin.text.Charsets;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.config.Configurator;
@@ -79,22 +79,22 @@ public class JediTermFx extends Application {
 
         public LoggingPtyProcessTtyConnector(@NotNull PtyProcess process, @NotNull Charset charset, @NotNull List command) {
             super(process, charset, command);
-            Intrinsics.checkNotNullParameter(process, "process");
-            Intrinsics.checkNotNullParameter(charset, "charset");
-            Intrinsics.checkNotNullParameter(command, "command");
+            Objects.requireNonNull(process, "process");
+            Objects.requireNonNull(charset, "charset");
+            Objects.requireNonNull(command, "command");
         }
 
         @Override
         public int read(@NotNull char[] buf, int offset, int length) throws IOException {
-            Intrinsics.checkNotNullParameter(buf, "buf");
+            Objects.requireNonNull(buf, "buf");
             int len = super.read(buf, offset, length);
             if (len > 0) {
                 char[] arr = ArraysKt.copyOfRange(buf, offset, len);
                 this.myDataChunks.add(arr);
-                Intrinsics.checkNotNull(this.myWidget);
+                Objects.requireNonNull(this.myWidget);
                 TerminalTextBuffer terminalTextBuffer = this.myWidget.getTerminalTextBuffer();
                 String lines = terminalTextBuffer.getScreenLines();
-                Intrinsics.checkNotNull(terminalTextBuffer);
+                Objects.requireNonNull(terminalTextBuffer);
                 LoggingTtyConnector.TerminalState terminalState =
                         new LoggingTtyConnector.TerminalState(lines, TerminalDebugUtil.getStyleLines(terminalTextBuffer),
                                 terminalTextBuffer.getHistoryBuffer().getLines());
@@ -127,20 +127,20 @@ public class JediTermFx extends Application {
 
         @Override
         public void write(@NotNull String string) throws IOException {
-            Intrinsics.checkNotNullParameter(string, "string");
+            Objects.requireNonNull(string, "string");
             logger.debug("Writing in OutputStream : " + string);
             super.write(string);
         }
 
         @Override
         public void write(@NotNull byte[] bytes) throws IOException {
-            Intrinsics.checkNotNullParameter(bytes, "bytes");
+            Objects.requireNonNull(bytes, "bytes");
             logger.debug("Writing in OutputStream : " + Arrays.toString(bytes) + " " + new String(bytes, Charsets.UTF_8));
             super.write(bytes);
         }
 
         public final void setWidget(@NotNull JediTermFxWidget widget) {
-            Intrinsics.checkNotNullParameter(widget, "widget");
+            Objects.requireNonNull(widget, "widget");
             this.myWidget = widget;
         }
     }
@@ -248,7 +248,7 @@ public class JediTermFx extends Application {
 
     @NotNull
     protected JediTermFxWidget createTerminalWidget(@NotNull SettingsProvider settingsProvider) {
-        Intrinsics.checkNotNullParameter(settingsProvider, "settingsProvider");
+        Objects.requireNonNull(settingsProvider, "settingsProvider");
         JediTermFxWidget widget = new JediTermFxWidget(settingsProvider);
         widget.addHyperlinkFilter(new DefaultHyperlinkFilter());
         return widget;

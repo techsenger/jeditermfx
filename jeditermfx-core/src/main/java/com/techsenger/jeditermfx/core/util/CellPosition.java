@@ -1,6 +1,6 @@
 package com.techsenger.jeditermfx.core.util;
 
-import kotlin.jvm.internal.Intrinsics;
+import java.util.Objects;
 
 public class CellPosition {
 
@@ -35,7 +35,7 @@ public class CellPosition {
     public boolean equals(Object other) {
         if (this == other) {
             return true;
-        } else if (!Intrinsics.areEqual(this.getClass(), other != null ? other.getClass() : null)) {
+        } else if (!Objects.equals(this.getClass(), other != null ? other.getClass() : null)) {
             return false;
         } else {
             CellPosition otherPos = (CellPosition) other;

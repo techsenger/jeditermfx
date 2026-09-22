@@ -6,14 +6,14 @@ import com.techsenger.jeditermfx.core.model.CharBuffer;
 import com.techsenger.jeditermfx.core.model.TerminalTextBuffer;
 import java.util.HashMap;
 import java.util.Map;
-import kotlin.jvm.internal.Intrinsics;
+import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 
 public final class TerminalDebugUtil {
 
     @NotNull
     public static final String getStyleLines(@NotNull TerminalTextBuffer textBuffer) {
-        Intrinsics.checkNotNullParameter(textBuffer, "textBuffer");
+        Objects.requireNonNull(textBuffer, "textBuffer");
         Map<Integer, Integer> style2IdMap = new HashMap();
         textBuffer.lock();
         try {

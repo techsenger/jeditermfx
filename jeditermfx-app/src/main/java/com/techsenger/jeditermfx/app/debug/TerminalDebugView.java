@@ -3,6 +3,7 @@ package com.techsenger.jeditermfx.app.debug;
 import com.techsenger.jeditermfx.app.pty.LoggingTtyConnector;
 import com.techsenger.jeditermfx.ui.TerminalSession;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -23,7 +24,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
-import kotlin.jvm.internal.Intrinsics;
 import org.jetbrains.annotations.NotNull;
 
 public class TerminalDebugView {
@@ -60,7 +60,7 @@ public class TerminalDebugView {
     public TerminalDebugView(@NotNull TerminalSession terminal) {
         typeComboBox.getItems().addAll(DebugBufferType.values());
         typeComboBox.setValue(DebugBufferType.Screen);
-        Intrinsics.checkNotNullParameter(terminal, "terminal");
+        Objects.requireNonNull(terminal, "terminal");
         this.terminal = terminal;
         loggingTtyConnector = (LoggingTtyConnector) terminal.getTtyConnector();
         var viewArea = createViewArea();
@@ -148,9 +148,9 @@ public class TerminalDebugView {
 
     private void syncSliderToSpinner() {
         var spinnerValueFactory = (SpinnerValueFactory.IntegerSpinnerValueFactory) spinner.getValueFactory();
-        if (!Intrinsics.areEqual(spinnerValueFactory.getValue(), (int) slider.getValue())
-                || !Intrinsics.areEqual(spinnerValueFactory.getMin(), (int) slider.getMin())
-                || !Intrinsics.areEqual(spinnerValueFactory.getMin(), (int) slider.getMax())) {
+        if (!Objects.equals(spinnerValueFactory.getValue(), (int) slider.getValue())
+                || !Objects.equals(spinnerValueFactory.getMin(), (int) slider.getMin())
+                || !Objects.equals(spinnerValueFactory.getMin(), (int) slider.getMax())) {
             this.spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory((int) slider.getMin(),
                     (int) slider.getMax(), (int) slider.getValue(), 1));
         }

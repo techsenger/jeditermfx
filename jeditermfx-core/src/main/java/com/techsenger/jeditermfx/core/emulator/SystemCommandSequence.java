@@ -7,8 +7,8 @@ import com.techsenger.jeditermfx.core.util.CharUtils;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import kotlin.collections.CollectionsKt;
-import kotlin.jvm.internal.Intrinsics;
 import kotlin.text.StringsKt;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +29,7 @@ public class SystemCommandSequence {
 
     public SystemCommandSequence(@NotNull TerminalDataStream stream) throws IOException {
         super();
-        Intrinsics.checkNotNullParameter(stream, "stream");
+        Objects.requireNonNull(stream, "stream");
         var textBuf = new StringBuilder();
         do {
             textBuf.append(stream.getChar());
