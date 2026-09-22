@@ -1,15 +1,13 @@
 
 package com.techsenger.jeditermfx.core.emulator;
 
-import com.techsenger.jeditermfx.core.util.Ascii;
 import com.techsenger.jeditermfx.core.TerminalDataStream;
+import com.techsenger.jeditermfx.core.util.Ascii;
 import com.techsenger.jeditermfx.core.util.CharUtils;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
-import kotlin.collections.CollectionsKt;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,7 +45,7 @@ public class SystemCommandSequence {
 
     @Nullable
     public final String getStringAt(int index) {
-        return (String) CollectionsKt.getOrNull(this.args, index);
+        return index >= 0 && index < this.args.size() ? this.args.get(index) : null;
     }
 
     public int getIntAt(int index, int defaultValue) {
