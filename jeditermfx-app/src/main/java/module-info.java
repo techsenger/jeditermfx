@@ -3,6 +3,7 @@ module com.techsenger.jeditermfx.app {
     requires com.techsenger.jeditermfx.core;
     requires com.techsenger.jeditermfx.ui;
     requires pty4j;
+    requires kotlin.stdlib;
     requires purejavacomm;
     requires org.jetbrains.annotations;
     requires org.slf4j;

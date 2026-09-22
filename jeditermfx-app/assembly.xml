@@ -28,6 +28,7 @@
                 <include>net.java.dev.jna:jna-platform</include>
                 <include>org.jetbrains.pty4j:pty4j</include>
                 <include>org.jetbrains.pty4j:purejavacomm</include>
+                <include>org.jetbrains.kotlin:kotlin-stdlib</include>
                 <include>org.slf4j:slf4j-api</include>
                 <include>org.apache.logging.log4j:log4j-api</include>
                 <include>org.apache.logging.log4j:log4j-core</include>

@@ -52,6 +52,8 @@
         <purejavacomm.version>0.0.11.1</purejavacomm.version>
         <annotations.version>24.0.1</annotations.version>
         <pty4j.version>0.12.25</pty4j.version>
+        <!-- kotlin stdlib is required for pty4j -->
+        <kotlin.version>1.9.22</kotlin.version>
         <javafx.version>19.0.2.1</javafx.version>
         <publishing.plugin.exclusions>jeditermfx-app</publishing.plugin.exclusions>
     </properties>
@@ -123,6 +125,12 @@
                 <groupId>org.jetbrains.pty4j</groupId>
                 <artifactId>pty4j</artifactId>
                 <version>${pty4j.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-stdlib</artifactId>
+                <version>${kotlin.version}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
