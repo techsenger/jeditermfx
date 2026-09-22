@@ -44,7 +44,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import kotlin.collections.ArraysKt;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.jetbrains.annotations.NotNull;
@@ -88,7 +87,7 @@ public class JediTermFx extends Application {
             Objects.requireNonNull(buf, "buf");
             int len = super.read(buf, offset, length);
             if (len > 0) {
-                char[] arr = ArraysKt.copyOfRange(buf, offset, len);
+                char[] arr = Arrays.copyOfRange(buf, offset, len);
                 this.myDataChunks.add(arr);
                 Objects.requireNonNull(this.myWidget);
                 TerminalTextBuffer terminalTextBuffer = this.myWidget.getTerminalTextBuffer();
